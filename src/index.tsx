@@ -1,8 +1,13 @@
+import "core-js/features/map";
+import "core-js/features/set";
 import React from 'react';
 import ReactDOM from 'react-dom';
+import bridge from "@vkontakte/vk-bridge";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+bridge.send("VKWebAppInit", {});
 
 ReactDOM.render(
   <React.StrictMode>

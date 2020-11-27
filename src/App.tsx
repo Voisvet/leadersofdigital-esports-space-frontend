@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
+import '@vkontakte/vkui/dist/vkui.css';
 import './App.css';
 
 function App() {
