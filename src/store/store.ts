@@ -1,6 +1,7 @@
 import bridge, { UserInfo } from "@vkontakte/vk-bridge";
 import { makeAutoObservable, runInAction } from "mobx";
-import { ApiService } from "./api.service";
+import { ApiService, TournamentReq } from "./api.service";
+import { router } from "../router/router";
 
 class Store {
   startupParams: any = {};
@@ -22,6 +23,12 @@ class Store {
   async fetchUserProfile() {
     const user = await bridge.send('VKWebAppGetUserInfo');
     runInAction(() => (this.userProfile = user));
+  }
+
+  async createTournament(tournament: TournamentReq) {
+    await this.apiService.createTournament(tournament);
+    router.popPageIfModal();
+    // ToDo: Обновление списка турниров
   }
 }
 

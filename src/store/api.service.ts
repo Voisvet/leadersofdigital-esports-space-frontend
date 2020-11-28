@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-interface Tournament {
+export interface Tournament {
   id: number,
   creator: number
   discipline: string,
@@ -12,7 +12,7 @@ interface Tournament {
   state: 'planned' | 'check_in' | 'in_progress' | 'finished',
 }
 
-interface TournamentReq {
+export interface TournamentReq {
   discipline: string,
   discipline_type: 'solo' | 'team',
   type: 'play_off' | 'group',
@@ -21,7 +21,7 @@ interface TournamentReq {
   start_time: string,
 }
 
-interface TournamentOrgInfo {
+export interface TournamentOrgInfo {
   "tournament": {
     "discipline": string,
     "discipline_type": 'solo' | 'team',
@@ -32,7 +32,7 @@ interface TournamentOrgInfo {
   }
 }
 
-interface Team {
+export interface Team {
   id: number;
   title: string;
   captain: number;
