@@ -5,7 +5,8 @@ import avatar from '../../assets/tournament_example.png'
 import cup_icon from '../../assets/cup_icon.png'
 import rating_icon from '../../assets/rating_icon.png'
 import sword_icon from '../../assets/sword_icon.png'
-import { TournamentCard } from "../../component/TournamentCard";
+import {NameTitle, StatisticDiv, StatisticIconImg, StyledGroup} from './profile.styled'
+import {TournamentCard} from "../../component/TournamentCard";
 
 export const ProfilePage = ({id}: {id: string}) => {
     const router = useRouter();
@@ -17,33 +18,33 @@ export const ProfilePage = ({id}: {id: string}) => {
             >
                 Профиль
             </PanelHeader>
-            <Group>
+            <StyledGroup>
                 <Avatar size={72} src={avatar}/>
-                <Title weight={"regular"} level={"2"}>Алексей Мазелюк</Title>
-            </Group>
+                <NameTitle weight={"regular"} level={"2"}>Алексей Мазелюк</NameTitle>
+            </StyledGroup>
             <Group header={<Header mode="secondary">Статистика</Header>}>
                 <Div>
                     <Card size={'l'}>
-                        <Div>
-                            <img src={rating_icon} alt={'Рейтинг'}/>
+                        <StatisticDiv>
+                            <StatisticIconImg src={rating_icon} alt={'Рейтинг'}/>
                             <Text weight={"regular"}>Ваш Рейтинг: 100</Text>
-                        </Div>
+                        </StatisticDiv>
                     </Card>
                 </Div>
                 <Div>
                     <Card size={'l'}>
-                        <Div>
-                            <img src={cup_icon} alt={'Победы'}/>
+                        <StatisticDiv>
+                            <StatisticIconImg src={cup_icon} alt={'Победы'}/>
                             <Text weight={"regular"}>Побед: 5</Text>
-                        </Div>
+                        </StatisticDiv>
                     </Card>
                 </Div>
                 <Div>
                     <Card size={'l'}>
-                        <Div>
-                            <img src={sword_icon} alt={'Турниры'}/>
+                        <StatisticDiv>
+                            <StatisticIconImg src={sword_icon} alt={'Турниры'}/>
                             <Text weight={"regular"}>Участие в турнирах: 7</Text>
-                        </Div>
+                        </StatisticDiv>
                     </Card>
                 </Div>
             </Group>

@@ -1,34 +1,32 @@
 import React from "react";
-import { Card, Text, Title } from "@vkontakte/vkui";
+import {BackgroundImg, CardContainer, StyledText, StyledTitle, TextContainer} from './tournamentCard.styled';
 
 export interface TournamentCardProps {
-  title: string;
-  discipline: string;
-  nextMatch?: string;
-  place?: string;
-  date: string;
-  image: string;
-  type: 'current' | 'passed' | 'planned'
+    title: string;
+    discipline: string;
+    nextMatch?: string;
+    place?: string;
+    date: string;
+    image: string;
+    type: 'current' | 'passed' | 'planned'
 }
 
 export const TournamentCard = (props: TournamentCardProps) => {
-  return (
-    <Card size={'l'}>
-      <Title weight={"regular"} level={"2"}>{props.title}</Title>
-      <Title weight={"regular"} level={"3"}>{props.discipline}</Title>
-      {props.type === 'current' ? (
-          <>
-            <Text weight={"regular"}>Следующий соперник:</Text>
-            <Text weight={"regular"}>{props.nextMatch}, {props.date}</Text>
-          </>
-        ) : null}
-      {props.type === 'passed' ? (
-          <>
-            <Text weight={"regular"}>{props.date}</Text>
-            <Text weight={"regular"}>{props.place}</Text>
-          </>
-        ) : null}
-      <img src={props.image} alt={props.title}/>
-    </Card>
-  )
+    return (
+        <CardContainer size={'l'}>
+            <BackgroundImg src={props.image} alt={props.title}/>
+            <TextContainer>
+                <StyledTitle weight={"regular"} level={"2"}>{props.title}</StyledTitle>
+                <StyledTitle weight={"regular"} level={"3"}>{props.discipline}</StyledTitle>
+                {props.type === 'current' ? (
+                    <>
+                        <StyledText weight={"regular"}>Следующий соперник:</StyledText>
+                        <StyledText weight={"regular"}>{props.nextMatch}, {props.date}</StyledText>
+                    </>
+                ) : null}
+                {['passed', 'planned'].includes(props.type) ? (<StyledText weight={"regular"}>{props.date}</StyledText>) : null}
+                {props.type === 'passed' ? (<StyledText weight={"regular"}>{props.place}</StyledText>) : null}
+            </TextContainer>
+        </CardContainer>
+    )
 }
