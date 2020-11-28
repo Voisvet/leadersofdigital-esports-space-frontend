@@ -1,17 +1,18 @@
 import React, {useEffect, useState} from "react";
 import {
+    Avatar,
     Button,
+    Card,
+    Cell,
+    Div,
     Group,
+    Header,
+    Link,
     Panel,
     PanelHeader,
     PanelHeaderBack,
-    Div,
     Separator,
-    Link,
-    Card,
-    Cell,
-    Subhead,
-    Text, Avatar, Header
+    Text
 } from "@vkontakte/vkui";
 import {useRouter} from "@happysanta/router";
 import {TournamentCard} from "../../component/TournamentCard";
@@ -22,7 +23,6 @@ import Icon28Messages from '@vkontakte/icons/dist/28/messages';
 import Icon201CircleFillGold from '@vkontakte/icons/dist/20/1_circle_fill_gold';
 import Icon202CircleFillSilver from '@vkontakte/icons/dist/20/2_circle_fill_silver';
 import Icon203CircleFillBronze from '@vkontakte/icons/dist/20/3_circle_fill_bronze';
-import {set} from "mobx";
 
 const ContainerForLink = styled.div`
   margin: 8px 0;
@@ -49,7 +49,7 @@ export const TournamentPage = ({id}) => {
     const [isRegistered, setIsRegistered] = useState(false);
     const [stage, setStage] = useState("planned")
     const [registration, setRegistration] = useState("planned")
-    const nextRival = {name: 'Босс'}
+    const nextRival = 'Босс'
 
     function handleStatusChange(status) {
         setIsRegistered(status);
@@ -62,7 +62,7 @@ export const TournamentPage = ({id}) => {
     useEffect(() => {
         isRegistered && setStage("current");
         isRegistered && setRegistration("registered");
-    })
+    }, [isRegistered])
 
     return (
         <Panel id={id}>
