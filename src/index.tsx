@@ -6,12 +6,16 @@ import bridge from "@vkontakte/vk-bridge";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { RouterContext } from "@happysanta/router";
+import { router } from "./router/router";
 
 bridge.send("VKWebAppInit", {});
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <RouterContext.Provider value={router}>
+      <App />
+    </RouterContext.Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
