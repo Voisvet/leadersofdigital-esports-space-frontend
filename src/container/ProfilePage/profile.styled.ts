@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import {Div, Group, Title} from "@vkontakte/vkui";
-import {TournamentCard} from "../../component/TournamentCard";
 
 export const StyledGroup = styled(Group)`
     display: flex;
