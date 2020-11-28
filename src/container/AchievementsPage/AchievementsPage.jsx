@@ -1,5 +1,6 @@
 import React from "react";
 import {Cell, Panel, PanelHeader, PanelHeaderBack, Avatar} from "@vkontakte/vkui";
+import {useRouter} from "@happysanta/router";
 
 export const AchievementsPage = ({id}) => {
     const achievements = [
@@ -29,10 +30,12 @@ export const AchievementsPage = ({id}) => {
         }
         ];
 
+    const router = useRouter();
+
     return (
         <Panel id={id}>
             <PanelHeader
-                 left={<PanelHeaderBack onClick={() => {}}/>}
+                 left={<PanelHeaderBack onClick={() => {router.popPage()}}/>}
             >
                 Достижения
             </PanelHeader>
