@@ -24,6 +24,9 @@ export const PANEL_R_TEST = `${ VIEW_RATING }_test`;
 export const VIEW_ACHIEVEMENTS = 'AchievementsView';
 export const PANEL_A_TEST = `${ VIEW_ACHIEVEMENTS }_test`;
 
+export const VIEW_MANAGE_TOURNAMENT = 'ManageTournamentView';
+export const PANEL_MT_TEST = `${VIEW_MANAGE_TOURNAMENT}_test`;
+
 /**
  * Определения роутов
  */
@@ -31,6 +34,7 @@ export const PAGE_ROOT = '/';
 export const PAGE_SEARCH = '/search';
 export const PAGE_ORGANIZE = '/organize';
 export const PAGE_TOURNAMENT = '/tournament/:id([0-9]+)';
+export const PAGE_TOURNAMENT_MANAGE = '/tournament/:id([0-9]+)/manage';
 export const PAGE_PROFILE = '/profile';
 export const PAGE_RATING = '/rating';
 export const PAGE_ACHIEVEMENTS = '/achievements';
@@ -54,6 +58,7 @@ const routes = {
   [PAGE_PROFILE]: new Page(PANEL_P_TEST, VIEW_PROFILE),
   [PAGE_RATING]: new Page(PANEL_R_TEST, VIEW_RATING),
   [PAGE_ACHIEVEMENTS]: new Page(PANEL_A_TEST, VIEW_ACHIEVEMENTS),
+  [PAGE_TOURNAMENT_MANAGE]: new Page(PANEL_MT_TEST, VIEW_MANAGE_TOURNAMENT)
 };
 
 export const router = new Router(routes);

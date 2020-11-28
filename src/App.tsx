@@ -9,6 +9,7 @@ import {
   MODAL_JOIN_TEAM,
   PANEL_A_TEST,
   PANEL_MAIN_TEST,
+  PANEL_MT_TEST,
   PANEL_P_TEST,
   PANEL_R_TEST,
   PANEL_T_TEST,
@@ -17,6 +18,7 @@ import {
   router,
   VIEW_ACHIEVEMENTS,
   VIEW_MAIN,
+  VIEW_MANAGE_TOURNAMENT,
   VIEW_PROFILE,
   VIEW_RATING,
   VIEW_TOURNAMENT,
@@ -35,6 +37,7 @@ import { FilterModal } from "./container/SearchPage/FilterModal";
 import { CreateTeamModal } from "./container/TournamentPage/CreateTeamModal";
 import { JoinTeamModal } from "./container/TournamentPage/JoinTeamModal";
 import { CreateTournamentModal } from "./container/OrganizePage/CreateTournamentModal";
+import { ManageTournamentPage } from "./container/ManageTournamentPage/ManageTournamentPage";
 
 function App() {
   const location = useLocation();
@@ -132,6 +135,13 @@ function App() {
         history={location.getViewHistory(VIEW_ACHIEVEMENTS)}
       >
         <AchievementsPage id={PANEL_A_TEST} />
+      </View>
+      <View
+        id={VIEW_MANAGE_TOURNAMENT}
+        activePanel={location.getViewActivePanel(VIEW_MANAGE_TOURNAMENT)}
+        history={location.getViewHistory(VIEW_MANAGE_TOURNAMENT)}
+      >
+        <ManageTournamentPage id={PANEL_MT_TEST} />
       </View>
     </Root>
   );
