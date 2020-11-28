@@ -14,12 +14,13 @@ import {
 import { Icon24Cancel, Icon24Done } from "@vkontakte/icons";
 import { useRouter } from "@happysanta/router";
 
-export const FilterModal = ({id, onClose}: {id: string, onClose: any}) => {
+
+export const FilterModal = ({id}: {id: string}) => {
   const router = useRouter();
   return (
     <ModalPage
       id={id}
-      onClose={onClose}
+      onClose={() => router.popPage()}
       header={
         <ModalPageHeader
           left={platform() === OS.ANDROID && <PanelHeaderButton onClick={() => router.popPage()}><Icon24Cancel /></PanelHeaderButton>}

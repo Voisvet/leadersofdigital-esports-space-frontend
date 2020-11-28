@@ -39,6 +39,8 @@ export const PAGE_ACHIEVEMENTS = '/achievements';
  * Модальные окна
  */
 export const MODAL_FILTER = 'FilterModal';
+export const MODAL_CREATE_TEAM = 'CreateTeamModal';
+export const MODAL_JOIN_TEAM = 'JoinTeamModal';
 
 /**
  * Конфигурация роутинга

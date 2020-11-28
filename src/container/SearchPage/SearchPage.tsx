@@ -20,7 +20,7 @@ export const SearchPage = ({id}: {id: string}) => {
               mode="secondary"
               aside={<Button mode="tertiary" onClick={() => router.pushModal(MODAL_FILTER)}>Отфильтровать</Button>}
             >
-              Статистика
+              Предстоящие
             </Header>
           }>
             <Div>
