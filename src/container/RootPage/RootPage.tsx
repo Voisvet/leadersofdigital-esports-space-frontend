@@ -22,7 +22,14 @@ export const RootPage = ({id}: {id: string}) => {
                 <Button onClick={() => router.pushPage(PAGE_ORGANIZE)}>Организовать турнир</Button>
                 <Button onClick={() => router.pushPage(PAGE_PROFILE)}>Профиль</Button>
               </Div>
-              <TournamentCard title={'Супер-турнир'} discipline={'Dota 2'} nextMatch={'Босс'} time={'18:00'} image={tournament} />
+              <TournamentCard
+                type={"current"}
+                title={'Супер-турнир'}
+                discipline={'Dota 2'}
+                nextMatch={'Босс'}
+                date={'18:00'}
+                image={tournament}
+              />
               <Div>
                 <Button
                   before={<Icon16Poll />}

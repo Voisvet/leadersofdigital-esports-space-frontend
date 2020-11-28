@@ -4,9 +4,11 @@ import { Card, Text, Title } from "@vkontakte/vkui";
 export interface TournamentCardProps {
   title: string;
   discipline: string;
-  nextMatch: string;
-  time: string;
+  nextMatch?: string;
+  place?: string;
+  date: string;
   image: string;
+  type: 'current' | 'passed' | 'planned'
 }
 
 export const TournamentCard = (props: TournamentCardProps) => {
@@ -14,8 +16,18 @@ export const TournamentCard = (props: TournamentCardProps) => {
     <Card size={'l'}>
       <Title weight={"regular"} level={"2"}>{props.title}</Title>
       <Title weight={"regular"} level={"3"}>{props.discipline}</Title>
-      <Text weight={"regular"}>Следующий соперник:</Text>
-      <Text weight={"regular"}>{props.nextMatch}, {props.time}</Text>
+      {props.type === 'current' ? (
+          <>
+            <Text weight={"regular"}>Следующий соперник:</Text>
+            <Text weight={"regular"}>{props.nextMatch}, {props.date}</Text>
+          </>
+        ) : null}
+      {props.type === 'passed' ? (
+          <>
+            <Text weight={"regular"}>{props.date}</Text>
+            <Text weight={"regular"}>{props.place}</Text>
+          </>
+        ) : null}
       <img src={props.image} alt={props.title}/>
     </Card>
   )
