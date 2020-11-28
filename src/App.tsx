@@ -4,6 +4,7 @@ import { ModalRoot, Root, View } from "@vkontakte/vkui";
 import { useLocation } from "@happysanta/router";
 import {
   MODAL_CREATE_TEAM,
+  MODAL_CREATE_TOURNAMENT,
   MODAL_FILTER,
   MODAL_JOIN_TEAM,
   PANEL_A_TEST,
@@ -33,6 +34,7 @@ import { store } from "./store/store";
 import { FilterModal } from "./container/SearchPage/FilterModal";
 import { CreateTeamModal } from "./container/TournamentPage/CreateTeamModal";
 import { JoinTeamModal } from "./container/TournamentPage/JoinTeamModal";
+import { CreateTournamentModal } from "./container/OrganizePage/CreateTournamentModal";
 
 function App() {
   const location = useLocation();
@@ -83,6 +85,14 @@ function App() {
         id={VIEW_TOURNAMENT_ORGANIZATION}
         activePanel={location.getViewActivePanel(VIEW_TOURNAMENT_ORGANIZATION)}
         history={location.getViewHistory(VIEW_TOURNAMENT_ORGANIZATION)}
+        modal={
+          <ModalRoot
+            activeModal={location.getModalId()}
+            onClose={() => router.popPage()}
+          >
+            <CreateTournamentModal id={MODAL_CREATE_TOURNAMENT} />
+          </ModalRoot>
+        }
       >
         <OrganizePage id={PANEL_TO_TEST}/>
       </View>
