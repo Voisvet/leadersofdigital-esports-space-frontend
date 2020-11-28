@@ -22,12 +22,8 @@ export const TournamentCard = (props: TournamentCardProps) => {
             <Text weight={"regular"}>{props.nextMatch}, {props.date}</Text>
           </>
         ) : null}
-      {props.type === 'passed' ? (
-          <>
-            <Text weight={"regular"}>{props.date}</Text>
-            <Text weight={"regular"}>{props.place}</Text>
-          </>
-        ) : null}
+      {['passed', 'planned'].includes(props.type) ? (<Text weight={"regular"}>{props.date}</Text>) : null}
+      {props.type === 'passed' ? (<Text weight={"regular"}>{props.place}</Text>) : null}
       <img src={props.image} alt={props.title}/>
     </Card>
   )
