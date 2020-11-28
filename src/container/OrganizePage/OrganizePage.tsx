@@ -16,7 +16,7 @@ export const OrganizePage = ({id}: {id: string}) => {
             Поиск
           </PanelHeader>
           <Div>
-            <Button size={"xl"} onClick={() => router.pushModal(MODAL_CREATE_TOURNAMENT)}>Создать турнир</Button>
+            <Button style={{backgroundColor: '#F2F2F2'}} size={"xl"} onClick={() => router.pushModal(MODAL_CREATE_TOURNAMENT)}>Создать турнир</Button>
           </Div>
           <Div>
             <TournamentCard
