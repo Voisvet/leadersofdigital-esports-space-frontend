@@ -1,9 +1,11 @@
 import bridge, { UserInfo } from "@vkontakte/vk-bridge";
 import { makeAutoObservable, runInAction } from "mobx";
+import { ApiService } from "./api.service";
 
-class VkData {
+class Store {
   startupParams: any = {};
   userProfile: UserInfo = {} as UserInfo;
+  apiService: ApiService;
 
   constructor() {
     const url = new URL(window.location.href);
@@ -13,14 +15,14 @@ class VkData {
         this.startupParams[key] = value;
       }
     }
+    this.apiService = new ApiService(this.startupParams);
     makeAutoObservable(this);
   }
 
   async fetchUserProfile() {
     const user = await bridge.send('VKWebAppGetUserInfo');
-    console.log(user);
     runInAction(() => (this.userProfile = user));
   }
 }
 
-export const vkData = new VkData();
+export const store = new Store();

@@ -25,13 +25,25 @@ import { TournamentPage } from "./container/TournamentPage/TournamentPage";
 import { ProfilePage } from "./container/ProfilePage/ProfilePage";
 import { RatingPage } from "./container/RatingPage/RatingPage";
 import { AchievementsPage } from "./container/AchievementsPage/AchievementsPage";
-import { vkData } from "./store/vkData";
 
 function App() {
   const location = useLocation();
 
   useEffect(() => {
-    vkData.fetchUserProfile();
+    // vkData.updateTournamentState(1);
+    // vkData.registerOnTournament(2);
+    // vkData.joinTeam(1);
+    // vkData.getMyTeams();
+    // vkData.registerTeam('Бешеные бурундуки');
+    // vkData.getOrgInfoForTournament(2);
+    // vkData.searchForTournaments();
+    // vkData.createTournament({
+    //   title: 'Супер-турнир',
+    //   discipline: 'Chess',
+    //   discipline_type: "solo",
+    //   type: "play_off",
+    //   start_time: '2020-01-01 12:00:00'
+    // });
   }, []);
 
   return (
