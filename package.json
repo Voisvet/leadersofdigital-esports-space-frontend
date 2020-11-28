@@ -29,7 +29,8 @@
     "start:tunnel": "vk-tunnel --insecure=1 --http-protocol=https --ws-protocol=wss --host=localhost --port=10888",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "vk-miniapps-deploy"
   },
   "eslintConfig": {
     "extends": [
@@ -51,6 +52,7 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.4",
+    "@vkontakte/vk-miniapps-deploy": "0.0.22",
     "@vkontakte/vk-tunnel": "0.0.15",
     "cross-env": "^7.0.2"
   }

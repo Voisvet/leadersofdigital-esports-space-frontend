@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '@vkontakte/vkui/dist/vkui.css';
 import { Root, View } from "@vkontakte/vkui";
 import { useLocation } from "@happysanta/router";
@@ -25,9 +25,14 @@ import { TournamentPage } from "./container/TournamentPage/TournamentPage";
 import { ProfilePage } from "./container/ProfilePage/ProfilePage";
 import { RatingPage } from "./container/RatingPage/RatingPage";
 import { AchievementsPage } from "./container/AchievementsPage/AchievementsPage";
+import { vkData } from "./store/vkData";
 
 function App() {
   const location = useLocation();
+
+  useEffect(() => {
+    vkData.fetchUserProfile();
+  }, []);
 
   return (
     <Root activeView={location.getViewId()}>
