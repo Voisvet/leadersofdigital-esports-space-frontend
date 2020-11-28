@@ -3,6 +3,7 @@ import { Button, Div, Group, Header, Panel, PanelHeader, PanelHeaderBack } from 
 import { useRouter } from "@happysanta/router";
 import { TournamentCard } from "../../component/TournamentCard";
 import tournament from "../../assets/tournament_example.png";
+import { MODAL_FILTER } from "../../router/router";
 
 export const SearchPage = ({id}: {id: string}) => {
   const router = useRouter();
@@ -17,7 +18,7 @@ export const SearchPage = ({id}: {id: string}) => {
           <Group header={
             <Header
               mode="secondary"
-              aside={<Button mode="tertiary">Отфильтровать</Button>}
+              aside={<Button mode="tertiary" onClick={() => router.pushModal(MODAL_FILTER)}>Отфильтровать</Button>}
             >
               Статистика
             </Header>

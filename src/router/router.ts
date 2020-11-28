@@ -36,6 +36,11 @@ export const PAGE_RATING = '/rating';
 export const PAGE_ACHIEVEMENTS = '/achievements';
 
 /**
+ * Модальные окна
+ */
+export const MODAL_FILTER = 'FilterModal';
+
+/**
  * Конфигурация роутинга
  */
 const routes = {

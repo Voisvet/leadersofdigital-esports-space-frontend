@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import '@vkontakte/vkui/dist/vkui.css';
-import { Root, View } from "@vkontakte/vkui";
+import { ModalRoot, Root, View } from "@vkontakte/vkui";
 import { useLocation } from "@happysanta/router";
 import {
+  MODAL_FILTER,
   PANEL_A_TEST,
   PANEL_MAIN_TEST,
   PANEL_P_TEST,
@@ -10,6 +11,7 @@ import {
   PANEL_T_TEST,
   PANEL_TO_TEST,
   PANEL_TS_TEST,
+  router,
   VIEW_ACHIEVEMENTS,
   VIEW_MAIN,
   VIEW_PROFILE,
@@ -25,11 +27,14 @@ import { TournamentPage } from "./container/TournamentPage/TournamentPage";
 import { ProfilePage } from "./container/ProfilePage/ProfilePage";
 import { RatingPage } from "./container/RatingPage/RatingPage";
 import { AchievementsPage } from "./container/AchievementsPage/AchievementsPage";
+import { store } from "./store/store";
+import { FilterModal } from "./container/SearchPage/FilterModal";
 
 function App() {
   const location = useLocation();
 
   useEffect(() => {
+    store.fetchUserProfile();
     // vkData.updateTournamentState(1);
     // vkData.registerOnTournament(2);
     // vkData.joinTeam(1);
@@ -59,6 +64,14 @@ function App() {
         id={VIEW_TOURNAMENTS_SEARCH}
         activePanel={location.getViewActivePanel(VIEW_TOURNAMENTS_SEARCH)}
         history={location.getViewHistory(VIEW_TOURNAMENTS_SEARCH)}
+        modal={
+          <ModalRoot
+            activeModal={location.getModalId()}
+            onClose={() => router.popPage()}
+          >
+            <FilterModal id={MODAL_FILTER} onClose={() => router.popPage()} />
+          </ModalRoot>
+        }
       >
         <SearchPage id={PANEL_TS_TEST} />
       </View>
