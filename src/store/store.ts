@@ -1,12 +1,18 @@
 import bridge, { UserInfo } from "@vkontakte/vk-bridge";
 import { makeAutoObservable, runInAction } from "mobx";
-import { ApiService, TournamentReq } from "./api.service";
+import { ApiService, Tournament, TournamentReq } from "./api.service";
 import { router } from "../router/router";
 
 class Store {
+  apiService: ApiService;
+
   startupParams: any = {};
   userProfile: UserInfo = {} as UserInfo;
-  apiService: ApiService;
+  tournaments: Tournament[] = [];
+
+  get tournamentsOrganizedByMe(): Tournament[] {
+    return this.tournaments.filter(tournament => +tournament.creator === +this.startupParams.vk_user_id);
+  }
 
   constructor() {
     const url = new URL(window.location.href);
@@ -28,7 +34,12 @@ class Store {
   async createTournament(tournament: TournamentReq) {
     await this.apiService.createTournament(tournament);
     router.popPageIfModal();
-    // ToDo: Обновление списка турниров
+    this.updateTournaments();
+  }
+
+  async updateTournaments() {
+    const tournaments = await this.apiService.searchForTournaments();
+    runInAction(() => this.tournaments = tournaments);
   }
 }
 

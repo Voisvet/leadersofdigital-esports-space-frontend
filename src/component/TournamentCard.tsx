@@ -1,5 +1,5 @@
 import React from "react";
-import {BackgroundImg, CardContainer, StyledText, StyledTitle, TextContainer} from './tournamentCard.styled';
+import { BackgroundImg, CardContainer, StyledText, StyledTitle, TextContainer } from './tournamentCard.styled';
 
 export interface TournamentCardProps {
     title: string;
@@ -10,11 +10,12 @@ export interface TournamentCardProps {
     image: string;
     type: 'current' | 'passed' | 'planned';
     registration?: 'registered' | 'planned';
+    onClick?: any;
 }
 
 export const TournamentCard = (props: TournamentCardProps) => {
     return (
-        <CardContainer size={'l'}>
+        <CardContainer size={'l'} onClick={props.onClick}>
             <BackgroundImg src={props.image} alt={props.title}/>
             <TextContainer>
                 <StyledTitle weight={"regular"} level={"2"}>{props.title}</StyledTitle>

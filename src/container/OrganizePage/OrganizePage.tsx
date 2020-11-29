@@ -1,50 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Div, Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
-import { MODAL_CREATE_TOURNAMENT } from "../../router/router";
+import { MODAL_CREATE_TOURNAMENT, PAGE_TOURNAMENT_MANAGE } from "../../router/router";
 import { TournamentCard } from "../../component/TournamentCard";
-import tournament from "../../assets/tournament_example.png";
+import tournament_img from "../../assets/tournament_example.png";
 import { useRouter } from "@happysanta/router";
+import { store } from "../../store/store";
+import { observer } from "mobx-react-lite";
 
-export const OrganizePage = ({id}: {id: string}) => {
+export const OrganizePage = observer(({id}: {id: string}) => {
   const router = useRouter();
 
-    return (
-        <Panel id={id}>
-          <PanelHeader
-            left={<PanelHeaderBack onClick={() => router.popPage()}/>}
-          >
-            Поиск
-          </PanelHeader>
-          <Div>
-            <Button style={{backgroundColor: '#F2F2F2'}} size={"xl"} onClick={() => router.pushModal(MODAL_CREATE_TOURNAMENT)}>Создать турнир</Button>
-          </Div>
-          <Div>
-            <TournamentCard
-              type={"planned"}
-              title={'Супер-турнир'}
-              discipline={'Dota 2'}
-              date={'27.11.2020 18:00'}
-              image={tournament}
-            />
-          </Div>
-          <Div>
-            <TournamentCard
-              type={"planned"}
-              title={'Супер-турнир'}
-              discipline={'Dota 2'}
-              date={'27.11.2020 18:00'}
-              image={tournament}
-            />
-          </Div>
-          <Div>
-            <TournamentCard
-              type={"planned"}
-              title={'Супер-турнир'}
-              discipline={'Dota 2'}
-              date={'27.11.2020 18:00'}
-              image={tournament}
-            />
-          </Div>
-        </Panel>
+  useEffect(() => {
+    store.updateTournaments();
+  }, []);
+
+  return (
+      <Panel id={id}>
+        <PanelHeader
+          left={<PanelHeaderBack onClick={() => router.popPage()}/>}
+        >
+          Управление
+        </PanelHeader>
+        <Div>
+          <Button style={{backgroundColor: '#F2F2F2'}} size={"xl"} onClick={() => router.pushModal(MODAL_CREATE_TOURNAMENT)}>Создать турнир</Button>
+        </Div>
+        {
+          store.tournamentsOrganizedByMe.map(tournament => (
+            <Div>
+              <TournamentCard
+                onClick={() => router.pushPage(PAGE_TOURNAMENT_MANAGE, { id: tournament.id as any })}
+                type={"planned"}
+                title={tournament.title}
+                discipline={tournament.discipline}
+                date={tournament.start_time}
+                image={tournament_img}
+              />
+            </Div>
+          ))
+        }
+      </Panel>
     );
-}
+})
