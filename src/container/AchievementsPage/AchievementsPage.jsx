@@ -37,19 +37,19 @@ export const AchievementsPage = ({id}) => {
             name: 'Начало положено',
             completed: false,
             description: 'Выиграть 1 турнир',
-            icon: '../../assets/56.png'
+            icon: icon72
         },
         {
             name: 'Я у мамы молодец',
             completed: false,
             description: 'Выиграть 5 турниров',
-            icon: '../../assets/56.png'
+            icon: icon72
         },
         {
             name: 'Давайте следующий',
             completed: false,
             description: 'Выиграть 10 турниров',
-            icon: '../../assets/56.png'
+            icon: icon72
         }
         ];
 

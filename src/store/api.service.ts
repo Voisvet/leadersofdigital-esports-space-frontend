@@ -55,12 +55,12 @@ export class ApiService {
    * Получение статистики
    */
   async getStatistic(): Promise<Statistic> {
-    const response = await axios.get<Statistic>(`${URL_ENDPOINT}/statistics`, { params: {
+    const response = await axios.get<{stats: Statistic}>(`${URL_ENDPOINT}/statistics`, { params: {
         ...this.startupParams,
       }
     });
     console.log(response);
-    return response.data;
+    return response.data.stats;
   }
 
   /**
