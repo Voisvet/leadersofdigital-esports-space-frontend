@@ -1,7 +1,8 @@
 import bridge, { UserInfo } from "@vkontakte/vk-bridge";
 import { makeAutoObservable, runInAction } from "mobx";
-import { ApiService, Tournament, TournamentReq } from "./api.service";
+import {ApiService, Statistic, Tournament, TournamentReq} from "./api.service";
 import { router } from "../router/router";
+import {statSync} from "fs";
 
 class Store {
   apiService: ApiService;
@@ -9,9 +10,14 @@ class Store {
   startupParams: any = {};
   userProfile: UserInfo = {} as UserInfo;
   tournaments: Tournament[] = [];
+  statistics: Statistic = {} as Statistic;
 
   get tournamentsOrganizedByMe(): Tournament[] {
     return this.tournaments.filter(tournament => +tournament.creator === +this.startupParams.vk_user_id);
+  }
+
+  get userStatistic(): Statistic {
+    return this.statistics;
   }
 
   constructor() {
@@ -24,6 +30,11 @@ class Store {
     }
     this.apiService = new ApiService(this.startupParams);
     makeAutoObservable(this);
+  }
+
+  async getStatistic() {
+    const stat = await this.apiService.getStatistic();
+    runInAction(() => (this.statistics = stat));
   }
 
   async fetchUserProfile() {
