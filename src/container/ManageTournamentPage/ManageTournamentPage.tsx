@@ -29,7 +29,7 @@ export const ManageTournamentPage = ({id}: {id: string}) => {
       <Group>
         <TournamentCard title={'Супер-турнир'} discipline={'DotA 2'} date={'153135'} image={avatar} type={"planned"} />
         <Div>
-          <Button size={"xl"}>Редактировать турнир</Button>
+          <Button style={{backgroundColor: '#3F8AE0', color: '#FFFFFF'}} size={"xl"}>Редактировать турнир</Button>
         </Div>
       </Group>
       <Group header={<Header mode="secondary">Статистика</Header>}>
@@ -61,7 +61,7 @@ export const ManageTournamentPage = ({id}: {id: string}) => {
       <Group header={<Header mode="secondary">Турнирная сетка</Header>}>
         <Div>
           <Card size="l">
-            <Button size={"xl"}>Турнирная сетка</Button>
+            <Button style={{backgroundColor: '#3F8AE0', color: '#FFFFFF'}} size={"xl"}>Турнирная сетка</Button>
           </Card>
         </Div>
       </Group>

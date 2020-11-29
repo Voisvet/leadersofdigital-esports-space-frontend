@@ -14,8 +14,6 @@ export const OrganizePage = observer(({id}: {id: string}) => {
     store.updateTournaments();
   }, []);
 
-  console.log(store.tournamentsOrganizedByMe, store.tournaments)
-
   return (
       <Panel id={id}>
         <PanelHeader
@@ -24,7 +22,7 @@ export const OrganizePage = observer(({id}: {id: string}) => {
           Управление
         </PanelHeader>
         <Div>
-          <Button size={"xl"} onClick={() => router.pushModal(MODAL_CREATE_TOURNAMENT)}>Создать турнир</Button>
+          <Button style={{backgroundColor: '#F2F2F2'}} size={"xl"} onClick={() => router.pushModal(MODAL_CREATE_TOURNAMENT)}>Создать турнир</Button>
         </Div>
         {
           store.tournamentsOrganizedByMe.map(tournament => (
