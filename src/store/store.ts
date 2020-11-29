@@ -1,6 +1,6 @@
 import bridge, { UserInfo } from "@vkontakte/vk-bridge";
 import { makeAutoObservable, runInAction } from "mobx";
-import { ApiService, Tournament, TournamentReq } from "./api.service";
+import { ApiService, Tournament, TournamentReq, TournamentSearchParams } from "./api.service";
 import { router } from "../router/router";
 
 class Store {
@@ -12,6 +12,10 @@ class Store {
 
   get tournamentsOrganizedByMe(): Tournament[] {
     return this.tournaments.filter(tournament => +tournament.creator === +this.startupParams.vk_user_id);
+  }
+
+  get tournamentsNotOrganizedByMe(): Tournament[] {
+    return this.tournaments.filter(tournament => +tournament.creator !== +this.startupParams.vk_user_id);
   }
 
   constructor() {
@@ -37,8 +41,8 @@ class Store {
     this.updateTournaments();
   }
 
-  async updateTournaments() {
-    const tournaments = await this.apiService.searchForTournaments();
+  async updateTournaments(params: TournamentSearchParams = {}) {
+    const tournaments = await this.apiService.searchForTournaments(params);
     runInAction(() => this.tournaments = tournaments);
   }
 }

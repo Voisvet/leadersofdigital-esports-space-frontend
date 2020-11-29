@@ -39,25 +39,28 @@ export interface Team {
   is_captain: boolean;
 }
 
+export interface TournamentSearchParams {
+  discipline?: string,
+  type?: 'play_off' | 'group',
+  lower_date?: string,
+  upper_date?: string,
+  lower_time?: string,
+  upper_time?: string
+}
+
 const URL_ENDPOINT = 'https://hub.education';
 
 export class ApiService {
-  constructor(private startupParams: any) {}
+  constructor(private startupParams: any) {
+  }
 
   /**
    * Поиск турниров
    */
   async searchForTournaments(
-    params: {
-      discipline?: string,
-      type?: 'play_off' | 'group',
-      lower_date?: string,
-      upper_date?: string,
-      lower_time?: string,
-      upper_time?: string
-    } = {}
+    params: TournamentSearchParams = {}
   ): Promise<Tournament[]> {
-    const response = await axios.get<{tournaments: Tournament[]}>(`${URL_ENDPOINT}/tournaments`, {
+    const response = await axios.get<{ tournaments: Tournament[] }>(`${ URL_ENDPOINT }/tournaments`, {
       params: {
         ...this.startupParams,
         ...params
@@ -71,7 +74,7 @@ export class ApiService {
    * Создать турниров
    */
   async createTournament(params: TournamentReq) {
-    const response = await axios.post(`${URL_ENDPOINT}/tournaments`, params,{
+    const response = await axios.post(`${ URL_ENDPOINT }/tournaments`, params, {
       params: { ...this.startupParams }
     });
     console.log(response);
@@ -81,9 +84,9 @@ export class ApiService {
    * Обновление состояния турнира
    */
   async updateTournamentState(tournamentId: number) {
-    const response = await axios.post(`${URL_ENDPOINT}/tournaments/state`, {
+    const response = await axios.post(`${ URL_ENDPOINT }/tournaments/state`, {
       tournament_id: tournamentId
-    },{ params: { ...this.startupParams } });
+    }, { params: { ...this.startupParams } });
     console.log(response);
   }
 
@@ -91,9 +94,9 @@ export class ApiService {
    * Регистрация на турнир
    */
   async registerOnTournament(tournamentId: number) {
-    const response = await axios.post(`${URL_ENDPOINT}/tournament/register`, {
+    const response = await axios.post(`${ URL_ENDPOINT }/tournament/register`, {
       tournament_id: tournamentId
-    },{ params: { ...this.startupParams } });
+    }, { params: { ...this.startupParams } });
     console.log(response);
   }
 
@@ -101,10 +104,12 @@ export class ApiService {
    * Получить организаторскую инфу
    */
   async getOrgInfoForTournament(tournamentId: number): Promise<TournamentOrgInfo> {
-    const response = await axios.get<TournamentOrgInfo>(`${URL_ENDPOINT}/tournament/org_info`,{ params: {
+    const response = await axios.get<TournamentOrgInfo>(`${ URL_ENDPOINT }/tournament/org_info`, {
+      params: {
         ...this.startupParams,
         tournament_id: tournamentId
-      } });
+      }
+    });
     console.log(response);
     return response.data;
   }
@@ -113,7 +118,7 @@ export class ApiService {
    * Создание команды
    */
   async registerTeam(title: string) {
-    const response = await axios.post(`${URL_ENDPOINT}/teams`, { title },{ params: {...this.startupParams} });
+    const response = await axios.post(`${ URL_ENDPOINT }/teams`, { title }, { params: { ...this.startupParams } });
     console.log(response);
   }
 
@@ -121,7 +126,7 @@ export class ApiService {
    * Вступление в команду
    */
   async joinTeam(team_id: number) {
-    const response = await axios.post(`${URL_ENDPOINT}/teams/enter`,{team_id}, { params: { ...this.startupParams } });
+    const response = await axios.post(`${ URL_ENDPOINT }/teams/enter`, { team_id }, { params: { ...this.startupParams } });
     console.log(response);
   }
 
@@ -129,7 +134,7 @@ export class ApiService {
    * Список ID команд
    */
   async getMyTeams(): Promise<Team[]> {
-    const response = await axios.get<{teams: Team[]}>(`${URL_ENDPOINT}/teams`, {
+    const response = await axios.get<{ teams: Team[] }>(`${ URL_ENDPOINT }/teams`, {
       params: { ...this.startupParams }
     });
     console.log(response);
@@ -140,7 +145,7 @@ export class ApiService {
    * Подтверждение участия
    */
   async confirmParticipation(tournament_id: number) {
-    const response = await axios.post(`${URL_ENDPOINT}/tournament/check_in`, {tournament_id}, {
+    const response = await axios.post(`${ URL_ENDPOINT }/tournament/check_in`, { tournament_id }, {
       params: { ...this.startupParams }
     });
     console.log(response);
