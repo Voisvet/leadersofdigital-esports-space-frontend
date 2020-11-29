@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Avatar, Card, Div, Group, Header, Panel, PanelHeader, PanelHeaderBack, Text, Title } from "@vkontakte/vkui";
 import { useRouter } from "@happysanta/router";
 import avatar from '../../assets/tournament_example.png'
@@ -7,9 +7,17 @@ import rating_icon from '../../assets/rating_icon.png'
 import sword_icon from '../../assets/sword_icon.png'
 import {NameTitle, StatisticDiv, StatisticIconImg, StyledGroup} from './profile.styled'
 import {TournamentCard} from "../../component/TournamentCard";
+import {observer} from "mobx-react-lite";
+import {store} from "../../store/store";
+import {Statistic} from "../../store/api.service";
 
-export const ProfilePage = ({id}: {id: string}) => {
+export const ProfilePage = observer(({id}: {id: string}) => {
     const router = useRouter();
+    const [statistic, setStatistic] = useState({} as Statistic);
+
+    useEffect(() => {
+        store.getStatistic();
+    }, []);
 
     return (
         <Panel id={id}>
@@ -27,7 +35,7 @@ export const ProfilePage = ({id}: {id: string}) => {
                     <Card size={'l'}>
                         <StatisticDiv>
                             <StatisticIconImg src={rating_icon} alt={'Рейтинг'}/>
-                            <Text weight={"regular"}>Ваш Рейтинг: 100</Text>
+                            <Text weight={"regular"}>Ваш Рейтинг: {store.userStatistic.rating}</Text>
                         </StatisticDiv>
                     </Card>
                 </Div>
@@ -35,7 +43,7 @@ export const ProfilePage = ({id}: {id: string}) => {
                     <Card size={'l'}>
                         <StatisticDiv>
                             <StatisticIconImg src={cup_icon} alt={'Победы'}/>
-                            <Text weight={"regular"}>Побед: 5</Text>
+                            <Text weight={"regular"}>Побед: {store.userStatistic.won}</Text>
                         </StatisticDiv>
                     </Card>
                 </Div>
@@ -43,7 +51,7 @@ export const ProfilePage = ({id}: {id: string}) => {
                     <Card size={'l'}>
                         <StatisticDiv>
                             <StatisticIconImg src={sword_icon} alt={'Турниры'}/>
-                            <Text weight={"regular"}>Участие в турнирах: 7</Text>
+                            <Text weight={"regular"}>Участие в турнирах: {store.userStatistic.played}</Text>
                         </StatisticDiv>
                     </Card>
                 </Div>
@@ -60,4 +68,4 @@ export const ProfilePage = ({id}: {id: string}) => {
             </Group>
         </Panel>
     );
-}
+})

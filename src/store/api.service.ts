@@ -1,5 +1,12 @@
 import axios from 'axios';
 
+export interface Statistic {
+  played: number,
+  won: number,
+  organized: number,
+  rating: number,
+}
+
 export interface Tournament {
   id: number,
   creator: number
@@ -59,6 +66,18 @@ const URL_ENDPOINT = 'https://hub.education';
 
 export class ApiService {
   constructor(private startupParams: any) {
+  }
+
+  /**
+   * Получение статистики
+   */
+  async getStatistic(): Promise<Statistic> {
+    const response = await axios.get<{stats: Statistic}>(`${URL_ENDPOINT}/statistics`, { params: {
+        ...this.startupParams,
+      }
+    });
+    console.log(response);
+    return response.data.stats;
   }
 
   /**
