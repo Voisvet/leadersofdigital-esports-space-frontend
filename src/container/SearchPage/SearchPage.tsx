@@ -1,12 +1,18 @@
-import React from "react";
-import {Button, Div, Group, Header, Panel, PanelHeader, PanelHeaderBack} from "@vkontakte/vkui";
-import {useRouter} from "@happysanta/router";
-import {TournamentCard} from "../../component/TournamentCard";
-import tournament from "../../assets/tournament_example.png";
-import {MODAL_FILTER} from "../../router/router";
+import React, { useEffect } from "react";
+import { Button, Div, Group, Header, Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
+import { useRouter } from "@happysanta/router";
+import { TournamentCard } from "../../component/TournamentCard";
+import tournament_image from "../../assets/tournament_example.png";
+import { MODAL_FILTER, PAGE_TOURNAMENT } from "../../router/router";
+import { store } from "../../store/store";
+import { observer } from "mobx-react-lite";
 
-export const SearchPage = ({id}: { id: string }) => {
+export const SearchPage = observer(({id}: { id: string }) => {
     const router = useRouter();
+
+    useEffect(() => {
+      store.updateTournaments();
+    }, []);
 
     return (
         <Panel id={id}>
@@ -24,34 +30,22 @@ export const SearchPage = ({id}: { id: string }) => {
                     <span style={{color: '#F2F2F2'}}>Предстоящие</span>
                 </Header>
             }>
-                <Div>
+              {
+                store.tournamentsNotOrganizedByMe.map(tournament => (
+                  <Div>
                     <TournamentCard
-                        type={"planned"}
-                        title={'Супер-турнир'}
-                        discipline={'Dota 2'}
-                        date={'27.11.2020 18:00'}
-                        image={tournament}
+                      onClick={() => router.pushPage(PAGE_TOURNAMENT, {id: tournament.id as any})}
+                      type={"planned"}
+                      registration={"planned"}
+                      title={tournament.title}
+                      discipline={tournament.discipline}
+                      date={tournament.start_time}
+                      image={tournament_image}
                     />
-                </Div>
-                <Div>
-                    <TournamentCard
-                        type={"planned"}
-                        title={'Супер-турнир'}
-                        discipline={'Dota 2'}
-                        date={'27.11.2020 18:00'}
-                        image={tournament}
-                    />
-                </Div>
-                <Div>
-                    <TournamentCard
-                        type={"planned"}
-                        title={'Супер-турнир'}
-                        discipline={'Dota 2'}
-                        date={'27.11.2020 18:00'}
-                        image={tournament}
-                    />
-                </Div>
+                  </Div>
+                ))
+              }
             </Group>
         </Panel>
     );
-}
+})

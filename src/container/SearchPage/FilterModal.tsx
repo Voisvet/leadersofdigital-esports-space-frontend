@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   FormLayout,
@@ -13,10 +13,19 @@ import {
 } from "@vkontakte/vkui";
 import { Icon24Cancel, Icon24Done } from "@vkontakte/icons";
 import { useRouter } from "@happysanta/router";
+import { store } from "../../store/store";
 
 
 export const FilterModal = ({id}: {id: string}) => {
   const router = useRouter();
+  const [discipline, setDiscipline] = useState('');
+  const [type, setType] = useState<'play_off' | 'group' | undefined>(undefined);
+
+  const processForm = () => {
+    store.updateTournaments({ discipline, type });
+    router.popPageIfModal()
+  };
+
   return (
     <ModalPage
       id={id}
@@ -24,14 +33,18 @@ export const FilterModal = ({id}: {id: string}) => {
       header={
         <ModalPageHeader
           left={platform() === OS.ANDROID && <PanelHeaderButton onClick={() => router.popPage()}><Icon24Cancel /></PanelHeaderButton>}
-          right={<PanelHeaderButton onClick={() => router.popPage()}>{platform() === OS.IOS ? 'Готово' : <Icon24Done />}</PanelHeaderButton>}
+          right={<PanelHeaderButton onClick={processForm}>{platform() === OS.IOS ? 'Готово' : <Icon24Done />}</PanelHeaderButton>}
         >
           Фильтры
         </ModalPageHeader>
       }
     >
       <FormLayout>
-        <Select top="Дисциплина" placeholder="Выбрать дисциплину">
+        <Select
+          top="Дисциплина"
+          placeholder="Выбрать дисциплину"
+          onChange={(e) => setDiscipline(e.target.value)}
+        >
           <option value="League of Legends">League of Legends</option>
           <option value="DotA 2">DotA 2</option>
           <option value="World of Tanks">World of Tanks</option>
@@ -39,9 +52,28 @@ export const FilterModal = ({id}: {id: string}) => {
         </Select>
 
         <FormLayoutGroup top="Тип турнира">
-          <Button size={"l"}>Любой</Button>
-          <Button size={"l"} mode={"secondary"}>Плей-офф</Button>
-          <Button size={"l"} mode={"secondary"} disabled>Групповой</Button>
+          <Button
+            size={"l"}
+            mode={!type ? "primary" : "secondary"}
+            onClick={() => setType(undefined)}
+          >
+            Любой
+          </Button>
+          <Button
+            size={"l"}
+            mode={type === "play_off" ? "primary" : "secondary"}
+            onClick={() => setType('play_off')}
+          >
+            Плей-офф
+          </Button>
+          <Button
+            size={"l"}
+            mode={type === "group" ? "primary" : "secondary"}
+            onClick={() => setType('group')}
+            disabled
+          >
+            Групповой
+          </Button>
         </FormLayoutGroup>
 
         <SelectMimicry top="Дата" placeholder="Выбрать дату" disabled />
