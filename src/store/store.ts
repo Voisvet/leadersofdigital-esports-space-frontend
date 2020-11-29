@@ -1,7 +1,7 @@
 import bridge, { UserInfo } from "@vkontakte/vk-bridge";
 import { makeAutoObservable, runInAction } from "mobx";
 import { ApiService, Tournament, TournamentReq, TournamentSearchParams } from "./api.service";
-import { router } from "../router/router";
+import { PAGE_TOURNAMENT_MANAGE, router } from "../router/router";
 
 class Store {
   apiService: ApiService;
@@ -36,9 +36,8 @@ class Store {
   }
 
   async createTournament(tournament: TournamentReq) {
-    await this.apiService.createTournament(tournament);
-    router.popPageIfModal();
-    this.updateTournaments();
+    const id = await this.apiService.createTournament(tournament);
+    router.popPageToAndPush(-1, PAGE_TOURNAMENT_MANAGE, {id: id as any});
   }
 
   async updateTournaments(params: TournamentSearchParams = {}) {

@@ -73,11 +73,11 @@ export class ApiService {
   /**
    * Создать турниров
    */
-  async createTournament(params: TournamentReq) {
-    const response = await axios.post(`${ URL_ENDPOINT }/tournaments`, params, {
+  async createTournament(params: TournamentReq): Promise<number> {
+    const response = await axios.post<{tournament_id: number}>(`${ URL_ENDPOINT }/tournaments`, params, {
       params: { ...this.startupParams }
     });
-    console.log(response);
+    return response.data.tournament_id;
   }
 
   /**
