@@ -48,6 +48,13 @@ export interface TournamentSearchParams {
   upper_time?: string
 }
 
+export interface TeamData {
+  title: string;
+  captain: number;
+  players: number[];
+  id: number
+}
+
 const URL_ENDPOINT = 'https://hub.education';
 
 export class ApiService {
@@ -74,7 +81,7 @@ export class ApiService {
    * Создать турниров
    */
   async createTournament(params: TournamentReq): Promise<number> {
-    const response = await axios.post<{tournament_id: number}>(`${ URL_ENDPOINT }/tournaments`, params, {
+    const response = await axios.post<{ tournament_id: number }>(`${ URL_ENDPOINT }/tournaments`, params, {
       params: { ...this.startupParams }
     });
     return response.data.tournament_id;
@@ -151,4 +158,30 @@ export class ApiService {
     console.log(response);
     return response.data.teams;
   }
+
+  /**
+   * Получение своей команды в турнире
+   */
+  async getTeamInTournament(tournament_id: number) {
+    const response = await axios.get<{team: TeamData}>(`${ URL_ENDPOINT }/tournaments/me`, {
+      params: {
+        ...this.startupParams,
+        tournament_id
+      }
+    });
+    return response.data.team;
+  }
+
+  /**
+   * Отправка заявки на турнир
+   */
+  async joinTournament(request: {tournament_id: number, team_id?: number, title: string}) {
+    const response = await axios.post<{team: TeamData}>(`${ URL_ENDPOINT }/tournaments/register`, request, {
+      params: {
+        ...this.startupParams
+      }
+    });
+  }
+
+
 }
